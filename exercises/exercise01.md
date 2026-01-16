@@ -1,6 +1,6 @@
 # Exercise 01: World Database SQL Practice
 
-- Name:
+- Name: Venkat Teja Nallamothu
 - Course: Database for Analytics
 - Module: 1
 - Database Used: World Database
@@ -27,7 +27,8 @@
 Why were these data types selected?
 
 ### Answer
-_Write your explanation here._
+_The Population is of 'int' data type with default values as 0 and its not nullable NO_
+_The LifeExpectancy is of 'decimal(3,1)' data type with default values NULL and is nullable_
 
 ### Screenshot
 _Show the table structure or DESCRIBE output._
@@ -36,7 +37,7 @@ _Show the table structure or DESCRIBE output._
 DESCRIBE country;
 ```
 
-![Q1 Screenshot](screenshots/q1_datatypes.png)
+![E1 Screenshot](screenshots/q1.png)
 
 ---
 
@@ -46,7 +47,7 @@ DESCRIBE country;
 Why do you think this data type was selected?
 
 ### Answer
-_Write your explanation here._
+_IndepYear is of type smallint so the Storage Size for INT = 4 bytes while SMALLINT = 2 bytes so this makes it significantly reduction in wasted space on disk. And as it is only showing year a small datatype is suffitient_
 
 ### Screenshot
 
@@ -54,7 +55,7 @@ _Write your explanation here._
 DESCRIBE country;
 ```
 
-![Q2 Screenshot](screenshots/q2_indepyear.png)
+![Q2 Screenshot](screenshots/q2.png)
 
 ---
 
@@ -64,7 +65,7 @@ DESCRIBE country;
 Explain why your proposed data type might be better in some situations.
 
 ### Answer
-_Write your explanation here._
+_I would say YEAR(4) is a better datatype as it has a range of 1901 … 2155 and it’s compact and semantically clear._
 
 ---
 
@@ -82,7 +83,7 @@ ORDER BY Name;
 
 ### Screenshot
 
-![Q4 Screenshot](screenshots/q4_cities_sorted.png)
+![Q4 Screenshot](screenshots/q4.png)
 
 ---
 
@@ -100,7 +101,7 @@ ORDER BY GovernmentForm;
 
 ### Screenshot
 
-![Q5 Screenshot](screenshots/q5_government_forms.png)
+![Q5 Screenshot](screenshots/q5.png)
 
 ---
 
@@ -118,7 +119,7 @@ WHERE Continent = 'Oceania';
 
 ### Screenshot
 
-![Q6 Screenshot](screenshots/q6_oceania.png)
+![Q6 Screenshot](screenshots/q6.png)
 
 ---
 
@@ -135,7 +136,7 @@ FROM city;
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7_city_countrycode.png)
+![Q7 Screenshot](screenshots/q7.png)
 
 ---
 
@@ -153,7 +154,7 @@ WHERE Name = 'Nashville-Davidson';
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8_update_city.png)
+![Q8 Screenshot](screenshots/q8.png)
 
 ---
 
@@ -171,7 +172,7 @@ VALUES ('NAR', 'Narnia', 'Europe', 'Fantasy', 1000000);
 
 ### Screenshot
 
-![Q9 Screenshot](screenshots/q9_insert_narnia.png)
+![Q9 Screenshot](screenshots/q9.png)
 
 ---
 
@@ -188,4 +189,4 @@ WHERE Code = 'NAR';
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10_delete_narnia.png)
+![Q10 Screenshot](screenshots/q10.png)
