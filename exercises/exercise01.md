@@ -37,7 +37,7 @@ _Show the table structure or DESCRIBE output._
 DESCRIBE country;
 ```
 
-![E1 Screenshot](screenshots/q1.png)
+![E1 Screenshot](screenshots/e1/q1.png)
 
 ---
 
@@ -55,7 +55,7 @@ _IndepYear is of type smallint so the Storage Size for INT = 4 bytes while SMALL
 DESCRIBE country;
 ```
 
-![Q2 Screenshot](screenshots/q2.png)
+![Q2 Screenshot](screenshots/e1/q2.png)
 
 ---
 
@@ -83,7 +83,7 @@ ORDER BY Name;
 
 ### Screenshot
 
-![Q4 Screenshot](screenshots/q4.png)
+![Q4 Screenshot](screenshots/e1/q4.png)
 
 ---
 
@@ -101,7 +101,7 @@ ORDER BY GovernmentForm;
 
 ### Screenshot
 
-![Q5 Screenshot](screenshots/q5.png)
+![Q5 Screenshot](screenshots/e1/q5.png)
 
 ---
 
@@ -119,7 +119,7 @@ WHERE Continent = 'Oceania';
 
 ### Screenshot
 
-![Q6 Screenshot](screenshots/q6.png)
+![Q6 Screenshot](screenshots/e1/q6.png)
 
 ---
 
@@ -136,7 +136,7 @@ FROM city;
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7.png)
+![Q7 Screenshot](screenshots/e1/q7.png)
 
 ---
 
@@ -154,7 +154,7 @@ WHERE Name = 'Nashville-Davidson';
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8.png)
+![Q8 Screenshot](screenshots/e1/q8.png)
 
 ---
 
@@ -172,7 +172,7 @@ VALUES ('NAR', 'Narnia', 'Europe', 'Fantasy', 1000000);
 
 ### Screenshot
 
-![Q9 Screenshot](screenshots/q9.png)
+![Q9 Screenshot](screenshots/e1/q9.png)
 
 ---
 
@@ -189,4 +189,4 @@ WHERE Code = 'NAR';
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10.png)
+![Q10 Screenshot](screenshots/e1/q10.png)
