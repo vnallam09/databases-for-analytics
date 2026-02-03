@@ -76,7 +76,7 @@ df.head(10)
 
 ### Screenshot
 
-![Q2 Screenshot](screenshots/e2/q2.png)
+![Q2 Screenshot](screenshots/e4/q2.png)
 
 ---
 
