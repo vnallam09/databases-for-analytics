@@ -1,8 +1,8 @@
 # Exercise 05: SQLDA Database - Dates, Data Quality, Arrays, and JSON
 
-- Name:
+- Name:  Venkat Teja Nallamothu
 - Course: Database for Analytics
-- Module:
+- Module: 5
 - Database Used:  `sqlda` (Sample Datasets)
 - Tools Used: PostgreSQL (pgAdmin or psql)
 
@@ -41,13 +41,15 @@ year
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT
+        distinct EXTRACT(YEAR FROM sent_date) as month_date
+    FROM emails;
 ```
 
 ### Screenshot
 
-![Q1 Screenshot](screenshots/q1_email_years.png)
+![Q1 Screenshot](screenshots/e5/q1.png)
 
 ---
 
@@ -64,13 +66,18 @@ count   year
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT
+        COUNT(*) AS count,
+        EXTRACT(YEAR FROM sent_date) AS year
+    FROM emails
+    GROUP BY 2
+    ORDER BY 2;
 ```
 
 ### Screenshot
 
-![Q2 Screenshot](screenshots/q2_message_count_by_year.png)
+![Q2 Screenshot](screenshots/e5/q2.png)
 
 ---
 
@@ -85,13 +92,19 @@ Only include emails that contain **both** a sent date and an opened date.
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT
+        sent_date AS send_date,
+        opened_date AS opened_date,
+        opened_date - sent_date AS interval
+    FROM emails
+    WHERE opened_date is not NULL AND sent_date is not NULL
+    order by 2,1,3;
 ```
 
 ### Screenshot
 
-![Q3 Screenshot](screenshots/q3_sent_opened_interval.png)
+![Q3 Screenshot](screenshots/e5/q3.png)
 
 ---
 
@@ -101,13 +114,18 @@ Using the `sqlda` database, write the SQL needed to show emails that contain an 
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT
+        sent_date,
+        opened_date
+    FROM emails
+    WHERE opened_date < sent_date
+    ORDER BY 2, 1;
 ```
 
 ### Screenshot
 
-![Q4 Screenshot](screenshots/q4_opened_before_sent.png)
+![Q4 Screenshot](screenshots/e5/q4.png)
 
 ---
 
@@ -119,11 +137,15 @@ After looking at the data, **why is this the case?**
 
 ### Answer
 
-_Write your explanation here._
+_Timezone mismatch -_
+* Sent_date and opened_date were recorded in different timezones without proper conversion
+* Clock synchronization issues - different servers had unsynchronized system clocks
+* Data migration problems - timestamps were incorrectly converted or lost timezone info during import
+* Default/batch timestamps - the consistent 15:00:00 times suggest placeholder values rather than actual send times
 
 ### Screenshot (if requested by instructor)
 
-![Q5 Screenshot](screenshots/q5_explain_date_issue.png)
+![Q5 Screenshot](screenshots/e5/q5.png)
 
 ---
 
@@ -131,7 +153,7 @@ _Write your explanation here._
 
 Using the `sqlda` database, explain in your own words what the following code does:
 
-```sql
+```
 CREATE TEMP TABLE customer_points AS (
     SELECT
         customer_id,
@@ -160,7 +182,10 @@ CREATE TEMP TABLE customer_dealership_distance AS (
 
 ### Answer
 
-_Write your explanation here._
+_This code creates a distance matrix between all customers and all dealerships:_
+* First table - Creates a temporary table storing each customer's location as a geometric point (excluding customers without coordinates)
+* Second table - Creates a temporary table storing each dealership's location as a geometric point
+* Third table - Calculates the distance between every customer and every dealership by cross-joining the two point tables, using the <@> operator to compute the Euclidean distance between each pair of points
 
 ---
 
@@ -177,12 +202,17 @@ For example - dealership 1 is below:
 ### SQL
 
 ```sql
--- Your SQL here
+    SELECT
+        dealership_id,
+        ARRAY_AGG(last_name||','||first_name) AS salespeople
+    FROM salespeople
+    GROUP BY dealership_id
+    ORDER BY dealership_id;
 ```
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7_salespeople_array_by_dealership.png)
+![Q7 Screenshot](screenshots/e5/q7.png)
 
 ---
 
@@ -201,13 +231,24 @@ Reference image:
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT
+        ds.dealership_id,
+        ds.state,
+        COUNT(sp.salesperson_id) AS no_of_salespeople,
+        ARRAY_AGG(sp.last_name||', '||sp.first_name) AS salespeople_list
+    FROM salespeople sp
+    LEFT JOIN dealerships ds
+        ON ds.dealership_id = sp.dealership_id
+    GROUP BY
+        ds.dealership_id, ds.state
+    ORDER BY
+        ds.state, ds.dealership_id;
 ```
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8_salespeople_array_state_count.png)
+![Q8 Screenshot](screenshots/e5/q8.png)
 
 ---
 
@@ -217,13 +258,14 @@ Using the `sqlda` database, write the SQL needed to convert the **customers** ta
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    SELECT row_to_json(customers)
+    FROM customers;
 ```
 
 ### Screenshot
 
-![Q9 Screenshot](screenshots/q9_customers_to_json.png)
+![Q9 Screenshot](screenshots/e5/q9.png)
 
 ---
 
@@ -243,10 +285,24 @@ Reference image:
 
 ### SQL
 
-```sql
--- Your SQL here
+```
+    WITH temp AS
+    (
+        SELECT
+            ds.dealership_id,
+            ds.state,
+            COUNT(sp.salesperson_id) AS no_of_salespeople,
+            ARRAY_AGG(sp.last_name||', '||sp.first_name) AS salespeople_list
+        FROM salespeople sp
+        LEFT JOIN dealerships ds
+            ON ds.dealership_id = sp.dealership_id
+        GROUP BY
+            ds.dealership_id, ds.state
+        ORDER BY
+            ds.state, ds.dealership_id
+    )SELECT row_to_json(temp) FROM temp;
 ```
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10_salespeople_array_to_json.png)
+![Q10 Screenshot](screenshots/e5/q10.png)
