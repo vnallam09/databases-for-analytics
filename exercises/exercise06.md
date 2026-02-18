@@ -1,7 +1,7 @@
 # Module 6 - Exercise 1: Creating a Data Warehouse
 From the Operational Model to the Dimensional Model
 
-- Name:
+- Name: Venkat Teja Nallamothu
 - Course: Database for Analytics
 - Module: 6
 
@@ -107,7 +107,7 @@ Save your diagram image in this repo and embed it below.
 
 #### Diagram
 
-![Star Schema Diagram](star-schema.png)
+![Star Schema Diagram](screenshots/e6/star-schema.png)
 
 ---
 
@@ -121,4 +121,8 @@ In 1-2 short paragraphs, explain:
 
 #### Design Notes
 
-_Write your design notes here._
+_For this data warehouse design_, I am choosing three dimension tables which are Dim_Date, Dim_Customer, and Dim_Part. I choose Dim_Date because we need to answer questions about specific days, months, quarters, and years. Dim_Customer is necessary because we want to analyze sales by individual customer and also by zip code location. Dim_Part is important because we need to filter and group sales by part number and by category like appliance or sporting goods.
+
+_The grain of the fact table is daily sales_, because the requirements says the grain is "daily sales" and all the analytics questions they asking are based on day, month, or quarter level — not by individual order. For example, the question "how many of part ax12 were sold on September 2, 1994" is supported by joining Fact_DailySales with Dim_Part and Dim_Date and filter by that specific date and part number. Another question like "how much did Customer 124 spend last year" is answering by joining with Dim_Customer and summing the amount column.
+
+And the question about _"how many appliance items sold in third quarter"_ is supported by joining Dim_Part on category field and Dim_Date on quarter field. So the design is covering all the required analytics questions very well.
